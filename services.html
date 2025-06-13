@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Gurmeet Building Materials</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background: #f8f9fa;
+            font-size: 16px;
+        }
+
+        /* Mobile-First Header */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Mobile Navigation - Horizontal Scroll */
+        nav {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 8px;
+            padding: 5px 0;
+            min-width: max-content;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.1);
+            white-space: nowrap;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        nav a:hover, nav a:active {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+
+        /* Services Section */
+        .services-section {
+            background: white;
+            padding: 60px 20px;
+            margin: 20px 15px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #e74c3c);
+        }
+
+        .services-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .services-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .services-description {
+            font-size: 1.1rem;
+            color: #555;
+            text-align: center;
+            margin-bottom: 50px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 30px 25px;
+            border-radius: 12px;
+            border-left: 4px solid #e74c3c;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            opacity: 0.1;
+            border-radius: 0 12px 0 50px;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(231, 76, 60, 0.2);
+            border-left-color: #f39c12;
+        }
+
+        .service-card:nth-child(even) {
+            border-left-color: #f39c12;
+        }
+
+        .service-card:nth-child(even):hover {
+            border-left-color: #e74c3c;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .service-title {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service-title::before {
+            content: '▶';
+            color: #e74c3c;
+            font-size: 0.9rem;
+        }
+
+        .service-description {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .service-features li {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            color: #27ae60;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Special highlight cards */
+        .highlight-card {
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            color: white;
+            border-left: 4px solid #c0392b;
+        }
+
+        .highlight-card .service-title {
+            color: white;
+        }
+
+        .highlight-card .service-title::before {
+            color: #fff;
+        }
+
+        .highlight-card .service-description {
+            color: #f8f9fa;
+        }
+
+        .highlight-card .service-features li {
+            color: #f8f9fa;
+        }
+
+        .highlight-card .service-features li::before {
+            color: #fff;
+        }
+
+        /* Contact CTA Section */
+        .contact-cta {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+            padding: 40px 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .cta-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .cta-description {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta-button:hover, .cta-button:active {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Staggered animation for service cards */
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+        .service-card:nth-child(5) { animation-delay: 0.5s; }
+        .service-card:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Copyright Section */
+        .copyright-section {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .copyright-text p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .copyright-text p:first-child {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .tagline {
+            color: #bdc3c7;
+            font-style: italic;
+            font-size: 0.85rem !important;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 8px 12px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover, .footer-links a:active {
+            background: rgba(255,255,255,0.1);
+            color: #f39c12;
+            transform: translateY(-1px);
+        }
+
+        .footer-links span {
+            color: #7f8c8d;
+            font-size: 0.8rem;
+        }
+
+        /* Tablet and larger screens */
+        @media (min-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .services-section {
+                max-width: 1200px;
+                margin: 40px auto;
+                padding: 80px 60px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            nav {
+                overflow: visible;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Touch improvements */
+        @media (hover: none) and (pointer: coarse) {
+            nav a {
+                padding: 15px 25px;
+                font-size: 1rem;
+            }
+            
+            .cta-button {
+                padding: 18px 35px;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Mobile footer adjustments */
+        @media (max-width: 480px) {
+            .copyright-section {
+                padding: 25px 15px;
+            }
+            
+            .footer-links {
+                gap: 10px;
+            }
+            
+            .footer-links span {
+                display: none;
+            }
+        }
+
+        /* Prevent horizontal scroll */
+        html, body {
+            overflow-x: hidden;
+        }
+
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="header-content">
+            <div class="logo">Gurmeet Building Materials</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Products</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <h2 class="services-title">Our Services</h2>
+        <p class="services-description">
+            Serving quality building materials with reliability and trust
+        </p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-icon">🏗️</span>
+                <div class="service-title">Retail Sale of Cement Sheets</div>
+                <div class="service-description">
+                    Quality cement sheets and roof materials for all your construction needs with competitive pricing.
+                </div>
+            </div>
+
+            <div class="service-card">
+                <span class="service-icon">🚪</span>
+                <div class="service-title">Wholesale Gate Fitting Items</div>
+                <div class="service-description">
+                    Complete range of gate fitting accessories and items available at wholesale rates for bulk buyers.
+                </div>
+            </div>
+
+          
+
+            <div class="service-card">
+                <span class="service-icon">🏘️</span>
+                <div class="service-title">Support for Rural Building Projects</div>
+                <div class="service-description">
+                    Specialized support and material supply for rural building projects and constructions in village areas.
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="contact-cta">
+            <h3 class="cta-title">Ready to Start Your Project?</h3>
+            <p class="cta-description">
+                Contact us today for quality materials, competitive prices, and reliable service for all your construction needs.
+            </p>
+            <a href="tel:9634899603" class="cta-button">📞 Call Now: 9634899603</a>
+        </div>
+    </section>
+
+    <!-- Copyright Section -->
+    <footer class="copyright-section">
+        <div class="footer-content">
+            <div class="copyright-text">
+                <p>&copy; 2025 Gurmeet Building Materials. All Rights Reserved.</p>
+                <p class="tagline">Building Trust, Delivering Quality</p>
+            </div>
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <span>|</span>
+                <a href="#terms">Terms of Service</a>
+                <span>|</span>
+                <a href="#contact">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
